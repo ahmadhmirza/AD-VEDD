@@ -9,7 +9,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import sys
 
-import config as APP_CONFIG
+import Config as APP_CONFIG
 class Window(QWidget):
     def __init__(self):
         super().__init__()
