@@ -1,3 +1,14 @@
 OpenCV-Python
 PyQt5==5.9.2
 lxml
+tensorflow==1.15
+tensorflow-object-detection-api
+matplotlib
+pathlib
+lxml
+pillow
+Cython
+contextlib2
+pandas
+pycocotools
+numpy==1.16
