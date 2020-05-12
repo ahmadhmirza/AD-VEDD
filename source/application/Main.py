@@ -60,16 +60,20 @@ class Window(QWidget):
         imagePath = fname[0]
         pixmap = QPixmap(imagePath)
         img = cv2.imread(imagePath)
+        #resolution of the image to match the window size
+        img_resolution = (APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
+        #resize image
+        img = cv2.resize(img, img_resolution)
+        #pass the image to ImageAnalysis module to detect objects and draw bounding boxes
         procImg = imgAnalysis.detectCarsAndLanes(img)
-
         height, width, channel = procImg.shape
         bytesPerLine = 3 * width
+        #Create a QImage object from the numpy image array
         qImg = QImage(procImg.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        #Create a QPixmap to be displayed on the label widget
         pix = QPixmap(qImg)
-        
         self.label.setPixmap(pix)
-        #self.label.setPixmap(QPixmap(pixmap))
-        self.resize(pixmap.width(), pixmap.height())
+        self.resize(APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
         self.centerWindow()
 
         #self.label.setPixmap(QPixmap(pixmap))
