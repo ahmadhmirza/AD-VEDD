@@ -8,8 +8,11 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import sys
-
+import cv2
 import Config as APP_CONFIG
+import ImageAnalysis as imgAnalysis
+from PyQt5.QtGui import QImage
+
 class Window(QWidget):
     def __init__(self):
         super().__init__()
@@ -56,9 +59,22 @@ class Window(QWidget):
         fname = QFileDialog.getOpenFileName(self, 'Open file','c:\\', "Image files (*.jpg *.gif)")
         imagePath = fname[0]
         pixmap = QPixmap(imagePath)
-        self.label.setPixmap(QPixmap(pixmap))
+        img = cv2.imread(imagePath)
+        procImg = imgAnalysis.detectCarsAndLanes(img)
+
+        height, width, channel = procImg.shape
+        bytesPerLine = 3 * width
+        qImg = QImage(procImg.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        pix = QPixmap(qImg)
+        
+        self.label.setPixmap(pix)
+        #self.label.setPixmap(QPixmap(pixmap))
         self.resize(pixmap.width(), pixmap.height())
         self.centerWindow()
+
+        #self.label.setPixmap(QPixmap(pixmap))
+        #self.resize(pixmap.width(), pixmap.height())
+        #self.centerWindow()
  
  
 def main():
