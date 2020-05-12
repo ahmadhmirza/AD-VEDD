@@ -1,0 +1,26 @@
+<annotation>
+	<folder>training_dataset</folder>
+	<filename>88.jpg</filename>
+	<path>/home/ahmad/Desktop/Repos/PathBranch/AD-VEDD/training_dataset/88.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>496</width>
+		<height>650</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>193</xmin>
+			<ymin>241</ymin>
+			<xmax>288</xmax>
+			<ymax>448</ymax>
+		</bndbox>
+	</object>
+</annotation>
