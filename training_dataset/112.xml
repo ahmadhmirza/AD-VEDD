@@ -53,7 +53,7 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>941</xmin>
+			<xmin>916</xmin>
 			<ymin>507</ymin>
 			<xmax>1058</xmax>
 			<ymax>4940</ymax>

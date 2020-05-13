@@ -17,18 +17,6 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>292</xmin>
-			<ymin>206</ymin>
-			<xmax>458</xmax>
-			<ymax>554</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
 			<xmin>487</xmin>
 			<ymin>201</ymin>
 			<xmax>643</xmax>
@@ -57,18 +45,6 @@
 			<ymin>201</ymin>
 			<xmax>1008</xmax>
 			<ymax>544</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>1038</xmin>
-			<ymin>191</ymin>
-			<xmax>1196</xmax>
-			<ymax>547</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -249,6 +225,18 @@
 			<ymin>152</ymin>
 			<xmax>487</xmax>
 			<ymax>532</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>74</xmin>
+			<ymin>605</ymin>
+			<xmax>136</xmax>
+			<ymax>832</ymax>
 		</bndbox>
 	</object>
 </annotation>

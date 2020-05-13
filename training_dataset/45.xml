@@ -281,22 +281,22 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>1135</xmin>
-			<ymin>543</ymin>
-			<xmax>1281</xmax>
-			<ymax>881</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
 			<xmin>1318</xmin>
 			<ymin>539</ymin>
 			<xmax>1471</xmax>
 			<ymax>885</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>49</xmin>
+			<ymin>548</ymin>
+			<xmax>114</xmax>
+			<ymax>765</ymax>
 		</bndbox>
 	</object>
 </annotation>

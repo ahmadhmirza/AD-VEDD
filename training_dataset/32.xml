@@ -17,18 +17,6 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>429</xmin>
-			<ymin>236</ymin>
-			<xmax>683</xmax>
-			<ymax>593</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
 			<xmin>675</xmin>
 			<ymin>228</ymin>
 			<xmax>924</xmax>

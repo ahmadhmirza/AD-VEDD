@@ -59,28 +59,4 @@
 			<ymax>958</ymax>
 		</bndbox>
 	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>317</xmin>
-			<ymin>302</ymin>
-			<xmax>568</xmax>
-			<ymax>918</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>652</xmin>
-			<ymin>347</ymin>
-			<xmax>914</xmax>
-			<ymax>906</ymax>
-		</bndbox>
-	</object>
 </annotation>
