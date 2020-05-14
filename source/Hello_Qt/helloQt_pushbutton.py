@@ -6,7 +6,7 @@ class Ui_MainWindow(object):
   
     def setupUi(self, MainWindow): 
         MainWindow.resize(506, 312) 
-        #self.centralwidget = QtWidgets.QWidget(MainWindow) 
+        self.centralwidget = QtWidgets.QWidget(MainWindow) 
           
         # adding pushbutton 
         self.pushButton = QtWidgets.QPushButton(self.centralwidget) 
