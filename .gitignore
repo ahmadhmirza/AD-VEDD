@@ -130,3 +130,5 @@ dmypy.json
 .pyre/
 
 tf_model/
+frozen_inference_graph.pb
+*.pb
