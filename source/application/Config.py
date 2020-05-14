@@ -6,14 +6,14 @@ SCRIPT_PATH = os.path.dirname(__file__)
 MAIN_WINDOW_TITLE = "VEd²" # Visual Evaluation of Drone Data - VEDD
 
 #Initial UI Size
-LEFT    =   500
-TOP     =   500
-WIDTH   =   700
-HEIGHT  =   500
+LEFT    =   400
+TOP     =   400
+WIDTH   =   630
+HEIGHT  =   530
 
 #ImageHolder size
-IMG_X       =   500
-IMG_Y       =   500
+IMG_X       =   10
+IMG_Y       =   10
 IMG_WIDTH   =   500
 IMG_HEIGHT  =   500
 

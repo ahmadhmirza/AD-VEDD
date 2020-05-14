@@ -1,121 +1,121 @@
-# from PyQt5 import QtGui
-# from PyQt5.QtWidgets import QApplication, QVBoxLayout, QPushButton, QLabel
-# from PyQt5.QtWidgets import QDesktopWidget,QWidget, QFileDialog, QTextEdit
-# from PyQt5.QtCore import *
-# from PyQt5.QtGui import QPixmap,QScreen
 
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-import sys
+from PyQt5 import QtCore, QtGui, QtWidgets 
+
+import sys 
 import cv2
 import Config as APP_CONFIG
 import ImageAnalysis as imgAnalysis
 from PyQt5.QtGui import QImage
 
-class Window(QWidget):
+class Ui_MainWindow(object): 
     def __init__(self):
         super().__init__()
-        self.title  =   APP_CONFIG.MAIN_WINDOW_TITLE
-        self.left   =   APP_CONFIG.LEFT
-        self.top    =   APP_CONFIG.TOP
-        self.width  =   APP_CONFIG.WIDTH
-        self.height =   APP_CONFIG.HEIGHT
-        self.initUI()
- 
-    def initUI(self):
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-        self.centerWindow()
+        self.title          =   APP_CONFIG.MAIN_WINDOW_TITLE
+        self.left           =   APP_CONFIG.LEFT
+        self.top            =   APP_CONFIG.TOP
+        self.width          =   APP_CONFIG.WIDTH
+        self.height         =   APP_CONFIG.HEIGHT
+        self.img_resolution = (APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
+        
+    def setupUi(self, MainWindow): 
+        MainWindow.setWindowTitle(self.title)
+        MainWindow.setGeometry(self.left, self.top, self.width, self.height)
+        #Fix window size so maximizing does not distort the layout.
+        MainWindow.setFixedSize(self.width, self.height)
+        self.centralwidget = QtWidgets.QWidget(MainWindow) 
+          
+        # pushbutton for loading data
+        self.btn_loadData = QtWidgets.QPushButton(self.centralwidget)
+        self.alignButton(self.btn_loadData,520, 10,APP_CONFIG.LOAD_DATA) 
 
-        #The QVBoxLayout class lines up widgets vertically
-        vbox = QVBoxLayout()
-        #Add a label where the image will be displayed
-        self.label = QLabel(self)
-        self.label = QLabel("")
-        self.label.setGeometry(APP_CONFIG.IMG_X, APP_CONFIG.IMG_Y, APP_CONFIG.IMG_WIDTH, APP_CONFIG.IMG_HEIGHT)
-        # Add the button to browse for the image
-        self.btn1 = QPushButton(APP_CONFIG.LOAD_DATA)
-        self.btn1.clicked.connect(self.getImage)
-        # Add the button to start the image analysis
-        self.btn2 = QPushButton(APP_CONFIG.PROCESS_IMAGE)
-        self.btn2.clicked.connect(self.processImage)
-
-        #Add widgets to vbox
-        vbox.addWidget(self.label)
-        vbox.addWidget(self.btn1)
-        vbox.addWidget(self.btn2)
-
-        self.setLayout(vbox)
-        self.show()
-
-    def alignButtons(self,qtPushButton,x,y):
-        qtPushButton.resize(APP_CONFIG.BTN_WIDTH,APP_CONFIG.BTN_HEIGHT)
-        qtPushButton.move(x, y) 
-        return True 
+        # pushbutton for analysing image
+        self.btn_analyseData = QtWidgets.QPushButton(self.centralwidget)
+        self.alignButton(self.btn_analyseData,520, 120,APP_CONFIG.PROCESS_IMAGE) 
+        # add signals for the buttons  
+        self.btn_loadData.clicked.connect(self.getImage) 
+        self.btn_analyseData.clicked.connect(self.processImage)    
+        # add label to hold and display the image
+        self.label = QtWidgets.QLabel(self.centralwidget) 
+        self.label.setGeometry(QtCore.QRect(APP_CONFIG.IMG_X,APP_CONFIG.IMG_Y, APP_CONFIG.IMG_WIDTH,APP_CONFIG.IMG_HEIGHT))       
+        # The set for the label is set to empty for now.
+        self.label.setText("Select an Image.")  
+        self.label.setFrameShape(QtWidgets.QFrame.Panel)
+        self.label.setFrameShadow(QtWidgets.QFrame.Sunken) 
+        MainWindow.setCentralWidget(self.centralwidget)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow) 
+  
+    def alignButton(self,qtPushButton,x,y,caption):
+        qtPushButton.setGeometry(QtCore.QRect(x, y, APP_CONFIG.BTN_WIDTH, APP_CONFIG.BTN_HEIGHT)) 
+        qtPushButton.setText(caption)
+        return True
 
     # This function aligns the UI to the center of the screen
-    def centerWindow(self):
+    def centerWindow():
         qtRectangle = self.frameGeometry()
         print(str(qtRectangle))
         centerPoint = QDesktopWidget().availableGeometry().center() 
         qtRectangle.moveCenter(centerPoint)
-        self.move(qtRectangle.topLeft())
+        MainWindow.move(qtRectangle.topLeft())
+        return True
 
     # This function acts as the slot for the button click signal
     # It opens up a window to select the image file that needs to be loaded into the application
     def getImage(self):
-        fname = QFileDialog.getOpenFileName(self, 'Open file','c:\\', "Image files (*.jpg *.gif)")
+        fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','c:\\', "Image files (*.jpg *.gif)")
         try:
             self.imagePath = fname[0]
             img = cv2.imread(self.imagePath)
-            img_resolution = (APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
             #resize image
-            img = cv2.resize(img, img_resolution)
+            img = cv2.resize(img, self.img_resolution )
             self.displayImageFromArray(img)
+            return True
         except Exception as e:
             print(str(e))
+            return False
 
     def processImage(self):
         try:
             img = cv2.imread(self.imagePath)
             print("DEBUG: Image read for analysis.")
-            #resolution of the image to match the window size
-            img_resolution = (APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
-            #resize image
-            img = cv2.resize(img, img_resolution)
+            #resize image to match the size of the Label(holder)
+            img = cv2.resize(img, self.img_resolution )
             #pass the image to ImageAnalysis module to detect objects and draw bounding boxes
             print("DEBUG: Processing image...")
             procImg = imgAnalysis.detectCarsAndLanes(img)
             print("DEBUG: Done!")
-            procImg = cv2.resize(img, img_resolution)
+            procImg = cv2.resize(img, self.img_resolution )
             self.displayImageFromArray(procImg)
+            return True
         except Exception as e:
             print("ERROR: " + str(e))
+            return False
 
 
     def displayImageFromArray(self,img):
         print("Drawing image on canvas.")
         try:
-            pixmap = QPixmap(self.imagePath)
+            pixmap = QtGui.QPixmap(self.imagePath)
             height, width, channel = img.shape
             bytesPerLine = 3 * width
             #Create a QImage object from the numpy image array
             qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888)
             #Create a QPixmap to be displayed on the label widget
-            pix = QPixmap(qImg)
+            pix = QtGui.QPixmap(qImg)
             self.label.setPixmap(pix)
-            self.resize(APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
-            self.centerWindow()
+            MainWindow.resize(APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
+            #self.centerWindow()
             print("DEBUG: Done!")
+            return True
         except Exception as e:
-            print(str(e))
- 
- 
-def main():
-    App = QApplication(sys.argv)
-    window = Window()
-    sys.exit(App.exec())
-
-if __name__ =="__main__":
-    main()
+            print(str(e)) 
+            return False
+  
+if __name__ == "__main__":  
+    app = QtWidgets.QApplication(sys.argv)  
+    
+    MainWindow = QtWidgets.QMainWindow()  
+    ui = Ui_MainWindow()  
+    ui.setupUi(MainWindow)  
+    MainWindow.show() 
+   
+    sys.exit(app.exec_())  
