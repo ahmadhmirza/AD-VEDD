@@ -29,54 +29,6 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>1243</xmin>
-			<ymin>95</ymin>
-			<xmax>1426</xmax>
-			<ymax>169</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>1</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>1222</xmin>
-			<ymin>1</ymin>
-			<xmax>1373</xmax>
-			<ymax>67</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>1030</xmin>
-			<ymin>193</ymin>
-			<xmax>1098</xmax>
-			<ymax>330</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>356</xmin>
-			<ymin>704</ymin>
-			<xmax>421</xmax>
-			<ymax>824</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
 			<xmin>431</xmin>
 			<ymin>700</ymin>
 			<xmax>495</xmax>
@@ -101,34 +53,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>960</xmin>
-			<ymin>687</ymin>
-			<xmax>1022</xmax>
-			<ymax>817</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
 			<xmin>650</xmin>
 			<ymin>894</ymin>
 			<xmax>716</xmax>
 			<ymax>1021</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>810</xmin>
-			<ymin>844</ymin>
-			<xmax>865</xmax>
-			<ymax>1010</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -261,18 +189,6 @@
 			<ymin>360</ymin>
 			<xmax>1241</xmax>
 			<ymax>500</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>Car</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>1097</xmin>
-			<ymin>346</ymin>
-			<xmax>1166</xmax>
-			<ymax>495</ymax>
 		</bndbox>
 	</object>
 	<object>

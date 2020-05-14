@@ -251,4 +251,52 @@
 			<ymax>737</ymax>
 		</bndbox>
 	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1383</xmin>
+			<ymin>896</ymin>
+			<xmax>1400</xmax>
+			<ymax>950</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1379</xmin>
+			<ymin>784</ymin>
+			<xmax>1398</xmax>
+			<ymax>832</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1382</xmin>
+			<ymin>666</ymin>
+			<xmax>1395</xmax>
+			<ymax>717</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1380</xmin>
+			<ymin>440</ymin>
+			<xmax>1395</xmax>
+			<ymax>491</ymax>
+		</bndbox>
+	</object>
 </annotation>

@@ -95,4 +95,16 @@
 			<ymax>581</ymax>
 		</bndbox>
 	</object>
+	<object>
+		<name>LaneMark</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>656</xmin>
+			<ymin>886</ymin>
+			<xmax>922</xmax>
+			<ymax>964</ymax>
+		</bndbox>
+	</object>
 </annotation>
