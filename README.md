@@ -1,7 +1,7 @@
 # AD-VEDD
 Automated Driving - Visual Evaluation of Drone Data
 
-This repo holds the software designed and built for the code competition (Automatisiertes Fahren – GUI zur visuellen Auswertung von Drohnendaten)[https://www.it-talents.de/foerderung/code-competition/code-competition-05-2020].
+This repo holds the software designed and built for the code competition [Automatisiertes Fahren – GUI zur visuellen Auswertung von Drohnendaten](https://www.it-talents.de/foerderung/code-competition/code-competition-05-2020).
 
 The objective of the software is to provide a GUI for analysis of images recorded from a drone footage for vehicles in a parking-lot. For the first phase, images are read into the GUI and analysis is performed using a combination of OpenCV and Tensorflow to detect vehicles and lane markings in the image. 
 
