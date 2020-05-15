@@ -13,8 +13,12 @@ def selectWhite(img):
     converted = cv2.cvtColor(img,cv2.COLOR_RGB2HLS)
     lower = np.uint8([0,200,0])
     upper = np.uint8([255,255,255])
-    white_mask = cv2.inRange(converted,lower,upper)
+
+    #test
+    lower = np.uint8([0,25,0])
+    upper = np.uint8([25,250,145])
     
+    white_mask = cv2.inRange(converted,lower,upper)
     return cv2.bitwise_and(img,img,mask=white_mask)
 
 # applies gaussian filter to remove noise
@@ -32,24 +36,52 @@ def showImageInline(img,title):
     plt.show()
     return True
 
+def calculateSlope(x1,y1,x2,y2):
+    Num = y2-y1
+    Den = x2-x1
+    try:
+        if Num == 0:
+            slope = Num/Den
+            print("Horizontal Line detected.")
+            print(slope)
+            return 1
+        if Den == 0:
+            print("Vertical line detected.")
+            return 1
+        else:
+            slope = Num/Den
+            return slope
+    except Exception as e:
+        print(str(e))
+        return -1
+
 #hough transform, draws lines on the passed image
 def houghTransform(image, edges):
     rho = 2
     theta = np.pi/180
     threshold = 15
-    min_line_length = 800
+    min_line_length = 900
     max_line_gap = 20
 
     line_image = np.copy(image)*0 #creating a blank to draw lines on
-
+    # skipping line_image part for now.
+    line_image = np.copy(image)
     # Run Hough on edge detected image
     lines = cv2.HoughLinesP(edges, rho, theta, threshold, np.array([]), min_line_length, max_line_gap)
-    
     try:
         # Iterate over the output "lines" and draw lines on the blank
         for line in lines:
             for x1,y1,x2,y2 in line:
-                cv2.line(line_image,(x1,y1),(x2,y2),(0,128,0),20)
+                slope = calculateSlope(x1,y1,x2,y2)
+                if slope == 1:
+                    cv2.line(line_image,(x1,y1),(x2,y2),(0,128,0),20)
+                elif slope >= -0.09 and slope <=0.09:
+                    cv2.line(line_image,(x1,y1),(x2,y2),(0,128,0),20)
+                else:
+                    print("The line is neither vertical nor horizontal, slope = " + str(slope))
+                    #cv2.line(line_image,(x1,y1),(x2,y2),(0,139,0),20)
+        #skipping overlaying line_image over original image for now.
+        return line_image
     except  Exception as e:
         print(str(e))
         return image
@@ -58,7 +90,6 @@ def houghTransform(image, edges):
     # Draw the lines on the edge image
     alpha = 0.8 
     beta = 1.0 
-    
     combo = cv2.addWeighted(image, 0.7, line_image, 1, 1)
     return combo
 
@@ -69,7 +100,7 @@ def detectLanesWhite(image):
     # apply white filter to extract the white lane lines
     img = selectWhite(image)   
     # apply thresholding
-    ret,img = cv2.threshold(img,150,255,cv2.THRESH_BINARY)
+    ret,img = cv2.threshold(img,120,255,cv2.THRESH_BINARY)
     #convert image to grayscale
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # gaussian filter to remove noise
@@ -80,11 +111,30 @@ def detectLanesWhite(image):
     return img
     
 def main():
-    img_path = "/home/ahmad/Desktop/test_images/test_4_2.jpg"
-    # Read in the image
-    image = cv2.imread(img_path)
-    img = detectLanesWhite(image)
-    showImageInline(img,"results")
+    img_path = "/home/ahmad/Desktop/test_1_3.jpg"
+    img_path = [
+        "/home/ahmad/Desktop/test_images/test_1_1.jpg",
+        "/home/ahmad/Desktop/test_images/test_1_2.jpg",
+        "/home/ahmad/Desktop/test_images/test_1_3.jpg",
+        "/home/ahmad/Desktop/test_images/test_2_1.jpg",
+        "/home/ahmad/Desktop/test_images/test_2_2.jpg",
+        "/home/ahmad/Desktop/test_images/test_2_3.jpg",
+        "/home/ahmad/Desktop/test_images/test_3_1.jpg",
+        "/home/ahmad/Desktop/test_images/test_3_2.jpg",
+        "/home/ahmad/Desktop/test_images/test_3_3.jpg",
+        "/home/ahmad/Desktop/test_images/test_4_1.jpg",
+        "/home/ahmad/Desktop/test_images/test_4_2.jpg",
+        "/home/ahmad/Desktop/test_images/test_4_3.jpg",
+        "/home/ahmad/Desktop/test_images/test_5_1.jpg",
+        "/home/ahmad/Desktop/test_images/test_5_2.jpg",
+        "/home/ahmad/Desktop/test_images/test_5_3.jpg"]
+    for imgPath in img_path:
+        # Read in the image
+        image = cv2.imread(imgPath)
+        image = gaussian_noise(image, 5) 
+        img = detectLanesWhite(image)
+        showImageInline(img,"results")
+
     
     
 # =============================================================================
@@ -99,6 +149,6 @@ def main():
 #     # show image in-line
 #     showImageInline(img,"Result")
 #     print("Done")
-#if __name__ == "__main__":
-#    main()
+if __name__ == "__main__":
+    main()
 # =============================================================================
