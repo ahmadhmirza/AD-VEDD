@@ -4,7 +4,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys 
 import cv2
 import Config as APP_CONFIG
-import ImageAnalysis as imgAnalysis
+import VehicleDetection as vd
+import LaneDetection as ld
 from PyQt5.QtGui import QImage
 
 class Ui_MainWindow(object): 
@@ -76,23 +77,24 @@ class Ui_MainWindow(object):
     def processImage(self):
         try:
             img = cv2.imread(self.imagePath)
-            print("DEBUG: Image read for analysis.")
-            #resize image to match the size of the Label(holder)
-            img = cv2.resize(img, self.img_resolution )
+            print("INFO: MAIN: Image read for analysis.")
             #pass the image to ImageAnalysis module to detect objects and draw bounding boxes
-            print("DEBUG: Processing image...")
-            procImg = imgAnalysis.detectCarsAndLanes(img)
-            print("DEBUG: Done!")
-            procImg = cv2.resize(img, self.img_resolution )
+            print("INFO: MAIN: Processing image...")
+            procImg = ld.detectLanesWhite(img)
+            procImg = cv2.resize(procImg, self.img_resolution )
+            procImg = vd.detectVehicles(procImg)
+            print("INFO: MAIN: Analysis done!")
+            procImg = cv2.resize(procImg, self.img_resolution )
             self.displayImageFromArray(procImg)
+            print("INFO: MAIN: Process finished.")
             return True
         except Exception as e:
-            print("ERROR: " + str(e))
+            print("ERROR: MAIN:" + str(e))
             return False
 
 
     def displayImageFromArray(self,img):
-        print("Drawing image on canvas.")
+        print("INFO: MAIN: Drawing image on canvas.")
         try:
             pixmap = QtGui.QPixmap(self.imagePath)
             height, width, channel = img.shape
@@ -104,7 +106,7 @@ class Ui_MainWindow(object):
             self.label.setPixmap(pix)
             MainWindow.resize(APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
             #self.centerWindow()
-            print("DEBUG: Done!")
+            print("INFO: MAIN: Done!")
             return True
         except Exception as e:
             print(str(e)) 

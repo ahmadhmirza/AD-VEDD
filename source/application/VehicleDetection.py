@@ -115,11 +115,13 @@ def analyseImage(image,detection_graph,category_index):
     line_thickness=2)
     return image_np
 
-def detectCarsAndLanes(inputImage):
+def detectVehicles(inputImage):
+    print("VehicleDetector: Starting analysis...")
     PATH_TO_FROZEN_GRAPH    = APP_CONFIG.TENSOR_FLOW_MODEL
     PATH_TO_LABELS          = APP_CONFIG.LABEL_MAP
     #detection_graph, category_index= load_DetGraph_and_Map(PATH_TO_FROZEN_GRAPH,PATH_TO_LABELS)
     outputImage = analyseImage(inputImage,detection_graph,category_index)
+    print("VehicleDetector: Analysis complete.")
     return outputImage
 
 PATH_TO_FROZEN_GRAPH    = APP_CONFIG.TENSOR_FLOW_MODEL
