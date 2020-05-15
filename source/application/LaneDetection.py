@@ -63,6 +63,7 @@ def houghTransform(image, edges):
     return combo
 
 def detectLanesWhite(image):
+    print("LaneDetector: Starting analysis...")
     print(image.shape)
     #img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # apply white filter to extract the white lane lines
@@ -75,12 +76,11 @@ def detectLanesWhite(image):
     img = gaussian_noise(img, 5) 
     #apply hough transform to detect the lines
     img = houghTransform(image,img)
+    print("LaneDetector: Analysis complete.")
     return img
     
 def main():
     img_path = "/home/ahmad/Desktop/test_images/test_4_2.jpg"
-    outimg_path = "/home/ahmad/Desktop/out.JPG"
-    
     # Read in the image
     image = cv2.imread(img_path)
     img = detectLanesWhite(image)
