@@ -9,7 +9,7 @@ MAIN_WINDOW_TITLE = "VEd²" # Visual Evaluation of Drone Data - VEDD
 LEFT    =   400
 TOP     =   400
 WIDTH   =   630
-HEIGHT  =   550
+HEIGHT  =   560
 
 #ImageHolder size
 IMG_X       =   10
@@ -22,7 +22,8 @@ BTN_WIDTH  = 100
 BTN_HEIGHT = 100
 #Push Button Strings
 LOAD_DATA       = "Select File"
-PROCESS_IMAGE    = "Analyse Image"
+SAVE_DATA       = "Save Image"
+PROCESS_IMAGE   = "Analyse Image"
 
 
 #ASSETS

@@ -7,6 +7,7 @@ import Config as APP_CONFIG
 import VehicleDetection as vd
 import LaneDetection as ld
 from PyQt5.QtGui import QImage
+from PyQt5.QtWidgets import QAction,QMenu
 
 class Ui_MainWindow(object): 
     def __init__(self):
@@ -34,9 +35,15 @@ class Ui_MainWindow(object):
         # pushbutton for analysing image
         self.btn_analyseData = QtWidgets.QPushButton(self.centralwidget)
         self.alignButton(self.btn_analyseData,520, 120,APP_CONFIG.PROCESS_IMAGE) 
+        # pushbutton for saving image
+        self.btn_saveData = QtWidgets.QPushButton(self.centralwidget)
+        self.alignButton(self.btn_saveData,520, 230,APP_CONFIG.SAVE_DATA) 
+
         # add signals for the buttons  
         self.btn_loadData.clicked.connect(self.getImage) 
-        self.btn_analyseData.clicked.connect(self.processImage)    
+        self.btn_analyseData.clicked.connect(self.processImage)   
+        self.btn_saveData.clicked.connect(self.saveImage)  
+
         # add label to hold and display the image
         self.label = QtWidgets.QLabel(self.centralwidget) 
         self.label.setGeometry(QtCore.QRect(APP_CONFIG.IMG_X,APP_CONFIG.IMG_Y, APP_CONFIG.IMG_WIDTH,APP_CONFIG.IMG_HEIGHT))       
@@ -45,9 +52,37 @@ class Ui_MainWindow(object):
         self.label.setFrameShape(QtWidgets.QFrame.Panel)
         self.label.setFrameShadow(QtWidgets.QFrame.Sunken)
 
-        # Add and display a messag on a status-bar.
+        # Add and display a message on a status-bar.
         self.displayStatus('Ready...')
 
+        # Add a menu-bar
+        menubar = MainWindow.menuBar()
+        fileMenu = menubar.addMenu('File')
+        toolsMenu = menubar.addMenu('Tools')
+        helpMenu = menubar.addMenu("Help")
+
+        # sub menus
+        loadImage_menu  = QAction('Import Image', menubar)  
+        saveImage_menu  =  QAction('Export Image', menubar) 
+
+        detVehicles_menu = QAction('Detect Vehicels', menubar) 
+        detLanes_menu = QAction('Detect Lanes', menubar) 
+        detectionAnalysis_menu = QAction('Analyse Detections', menubar) 
+
+        docLink_menu    = QAction("Documentation",menubar)
+        about_menu      = QAction("About",menubar)
+
+        # register sub-menus with the main menu-bar     
+        fileMenu.addAction(loadImage_menu)
+        fileMenu.addAction(saveImage_menu)
+
+        toolsMenu.addAction(detVehicles_menu)
+        toolsMenu.addAction(detLanes_menu)
+        toolsMenu.addAction(detectionAnalysis_menu)
+
+        helpMenu.addAction(docLink_menu)
+        helpMenu.addAction(about_menu)
+        ####
         MainWindow.setCentralWidget(self.centralwidget)
         QtCore.QMetaObject.connectSlotsByName(MainWindow) 
   
@@ -74,6 +109,7 @@ class Ui_MainWindow(object):
             img = cv2.imread(self.imagePath)
             #resize image
             img = cv2.resize(img, self.img_resolution )
+            self.image = img
             self.displayImageFromArray(img)
             self.displayStatus('Image loaded and ready for analysis.')
             return True
@@ -95,6 +131,7 @@ class Ui_MainWindow(object):
             print("INFO: MAIN: Analysis done!")
             self.displayStatus('Image analysis finished.')
             procImg = cv2.resize(procImg, self.img_resolution )
+            self.image = procImg
             self.displayImageFromArray(procImg)
             print("INFO: MAIN: Process finished.")
             self.displayStatus('Image analysis results on canvas.')
@@ -104,6 +141,16 @@ class Ui_MainWindow(object):
             self.displayStatus('Error(s) encountered while processing image.')
             return False
 
+    def saveImage(self):
+        try:
+            fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_outImage', "Image files (*.jpg)")
+            filePath = fname[0]+".jpg"
+            cv2.imwrite(filePath,self.image)
+            self.displayStatus('File saved: ' + filePath)
+        except Exception as e:
+            print(str(e))
+            self.displayStatus('Error(s) encountered while saving image.')
+            return False
 
     def displayImageFromArray(self,img):
         print("INFO: MAIN: Drawing image on canvas.")
