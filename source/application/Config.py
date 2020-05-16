@@ -9,7 +9,7 @@ MAIN_WINDOW_TITLE = "VEd²" # Visual Evaluation of Drone Data - VEDD
 LEFT    =   400
 TOP     =   400
 WIDTH   =   630
-HEIGHT  =   530
+HEIGHT  =   550
 
 #ImageHolder size
 IMG_X       =   10

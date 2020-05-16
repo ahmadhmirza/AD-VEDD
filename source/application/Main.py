@@ -17,7 +17,9 @@ class Ui_MainWindow(object):
         self.width          =   APP_CONFIG.WIDTH
         self.height         =   APP_CONFIG.HEIGHT
         self.img_resolution = (APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
-        
+    def displayStatus(self,statusMessage):
+        MainWindow.statusBar().showMessage(statusMessage)
+
     def setupUi(self, MainWindow): 
         MainWindow.setWindowTitle(self.title)
         MainWindow.setGeometry(self.left, self.top, self.width, self.height)
@@ -41,7 +43,11 @@ class Ui_MainWindow(object):
         # The set for the label is set to empty for now.
         self.label.setText("Select an Image.")  
         self.label.setFrameShape(QtWidgets.QFrame.Panel)
-        self.label.setFrameShadow(QtWidgets.QFrame.Sunken) 
+        self.label.setFrameShadow(QtWidgets.QFrame.Sunken)
+
+        # Add and display a messag on a status-bar.
+        self.displayStatus('Ready...')
+
         MainWindow.setCentralWidget(self.centralwidget)
         QtCore.QMetaObject.connectSlotsByName(MainWindow) 
   
@@ -69,9 +75,11 @@ class Ui_MainWindow(object):
             #resize image
             img = cv2.resize(img, self.img_resolution )
             self.displayImageFromArray(img)
+            self.displayStatus('Image loaded and ready for analysis.')
             return True
         except Exception as e:
             print(str(e))
+            self.displayStatus('Error loading image.')
             return False
 
     def processImage(self):
@@ -80,16 +88,20 @@ class Ui_MainWindow(object):
             print("INFO: MAIN: Image read for analysis.")
             #pass the image to ImageAnalysis module to detect objects and draw bounding boxes
             print("INFO: MAIN: Processing image...")
+            self.displayStatus('Starting image analysis...')
             procImg = ld.detectLanesWhite(img)
             procImg = cv2.resize(procImg, self.img_resolution )
             procImg = vd.detectVehicles(procImg)
             print("INFO: MAIN: Analysis done!")
+            self.displayStatus('Image analysis finished.')
             procImg = cv2.resize(procImg, self.img_resolution )
             self.displayImageFromArray(procImg)
             print("INFO: MAIN: Process finished.")
+            self.displayStatus('Image analysis results on canvas.')
             return True
         except Exception as e:
             print("ERROR: MAIN:" + str(e))
+            self.displayStatus('Error(s) encountered while processing image.')
             return False
 
 
