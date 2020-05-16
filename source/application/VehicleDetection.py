@@ -99,6 +99,13 @@ def analyseImage(image,detection_graph,category_index):
     # result image with boxes and labels on it.
     #image_np = load_image_into_numpy_array(image)
     image_np = image
+    height, width, channels = image_np.shape
+    if height <=500 and widht <=500:
+        print("Resolution: " + str(height)+", " + str(width))
+        BOUNDING_BOX_LINE_THICKNESS = 2
+    else:
+        print("Resolution: " + str(height)+", " + str(width))
+        BOUNDING_BOX_LINE_THICKNESS = 8
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     #image_np_expanded = np.expand_dims(image_np, axis=0)
     # Actual detection.
@@ -112,7 +119,7 @@ def analyseImage(image,detection_graph,category_index):
     category_index,
     instance_masks=output_dict.get('detection_masks'),
     use_normalized_coordinates=True,
-    line_thickness=2)
+    line_thickness=BOUNDING_BOX_LINE_THICKNESS)
     return image_np
 
 def detectVehicles(inputImage):
