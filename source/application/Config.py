@@ -8,7 +8,7 @@ MAIN_WINDOW_TITLE = "VEd²" # Visual Evaluation of Drone Data - VEDD
 #Initial UI Size
 LEFT    =   400
 TOP     =   400
-WIDTH   =   630
+WIDTH   =   1630
 HEIGHT  =   530
 
 #ImageHolder size
@@ -22,6 +22,7 @@ BTN_WIDTH  = 100
 BTN_HEIGHT = 100
 #Push Button Strings
 LOAD_DATA       = "Select File"
+SHOW_DATA       = "Show Metadata"
 PROCESS_IMAGE    = "Analyse Image"
 
 
