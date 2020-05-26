@@ -1,9 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pyexiv2 import Image
 from UI_Layout import *
+from UI_Dialog import *
 import os
 import re
-from ui_Dialog import *
+
 class Visualisor(UI,Ui_Dialog):
         
         def getImagePath(self, path):
