@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2
 import os
 import Config as APP_CONFIG
-from Visaulizor import *
+from Visualizer import *
 from UI_Layout import *
 from PyQt5.QtGui import QImage
 from ui_Dialog import *
