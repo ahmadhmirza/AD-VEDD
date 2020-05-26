@@ -3,7 +3,7 @@ import cv2
 import os
 import Config as APP_CONFIG
 from Visaulizor import *
-from UI import *
+from UI_Layout import *
 from PyQt5.QtGui import QImage
 from ui_Dialog import *
 
@@ -17,14 +17,20 @@ class ImageLoader(UI,Ui_Dialog):
         self.height         =   APP_CONFIG.HEIGHT
         self.img_resolution = (APP_CONFIG.WIDTH, APP_CONFIG.HEIGHT)
         self.loadImage.clicked.connect(self.getImage) 
+
+    def displayStatus(self,statusMessage):
+        MainWindow.statusBar().showMessage(statusMessage)
+
     def getImage(self):
-        self.fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','E:\\', "Image files (*.jpg *.gif)")
+        self.fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','C:\\', "Image files (*.jpg *.gif)")
         try:
             self.imagePath = self.fname[0]
             self.img = cv2.imread(self.imagePath)
             self.img = cv2.resize(self.img, self.img_resolution )
             Visualisor.getImagePath(self, self.imagePath)
-            Visualisor.LoadMetadata(self, self.imagePath)
+            status = Visualisor.LoadMetadata(self, self.imagePath)
+            if status !=True:
+                self.displayStatus("ERROR: Unable to read meta-data from image: " + status)
             # Visualisor.one(self)
             self.displayImageFromArray()      
             return True
@@ -63,4 +69,3 @@ if __name__ == "__main__":
 
     MainWindow.show()
     sys.exit(app.exec_())
-
