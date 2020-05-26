@@ -1,13 +1,20 @@
-
-from PyQt5 import QtCore, QtGui, QtWidgets 
-
-import sys 
+# Importing required libraries
 import cv2
-import Config as APP_CONFIG
-import VehicleDetection as vd
-import LaneDetection as ld
+import sys 
+import os
+from PyQt5 import QtCore, QtGui, QtWidgets 
 from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import QAction,QMenu
+# Configuration module
+import Config as APP_CONFIG
+# UI files
+from Visaulizor import *
+from UI import *
+from ui_Dialog import *
+# Image processing files
+import VehicleDetection as vd
+import LaneDetection as ld
+
 
 class Ui_MainWindow(object): 
     def __init__(self):
