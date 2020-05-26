@@ -27,28 +27,21 @@ class ImageLoader(UI,Ui_Dialog):
         try:
             self.imagePath = self.fname[0]
             self.image = cv2.imread(self.imagePath)
-            height, width, channels = self.image.shape
-            print("Resolution: " + str(height)+", " + str(width))
 
             #Read metadata from the image
-            Visualisor.getImagePath(self, self.imagePath)
             status = Visualisor.LoadMetadata(self, self.imagePath)
-            if status !=True:
-                if self.displayImageFromArray():
-                    self.displayStatus("Image loaded and ready for analysis, Error(s) encountered while reading exif-data from image: " + status) 
-                    return True
-                else:
+            if status !=True: # Meta data not read
+                if self.displayImageFromArray(): #Image displayed on the canvas
+                    self.displayStatus("Image loaded and ready for analysis, Error(s) encountered while reading exif-data from image: " + status)
+                else: # image not displayed on the canvas
                     self.displayStatus("Unable to load the image. ")
-                    return False
-            else:
-                #Draw the image on canvas
+            else: # Meta data read successfully
                 self.displayImageFromArray()      
                 self.displayStatus('Image loaded and ready for analysis. Image resolution: '+ str(height)+" x " + str(width))
                 return True
         except Exception as e:
             print(str(e))
             self.displayStatus('Error loading image.')
-            return False
 
     def displayImageFromArray(self):
         print("INFO: MAIN: Drawing image on canvas.")
