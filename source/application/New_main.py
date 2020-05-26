@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2
+import os
 import Config as APP_CONFIG
 from Visaulizor import *
 from UI import *
@@ -51,7 +52,10 @@ class ImageLoader(UI):
         
 if __name__ == "__main__":
     import sys
+    # os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     app = QtWidgets.QApplication(sys.argv)
+    app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+    app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
     MainWindow = QtWidgets.QMainWindow()
     im = ImageLoader(MainWindow)
 

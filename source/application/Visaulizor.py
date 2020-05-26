@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from pyexiv2 import Image
 from UI import *
 import os
+import re
 class Visualisor(UI):
         def getImagePath(self, path):
                 self.path = path
@@ -18,24 +19,13 @@ class Visualisor(UI):
                 del ex['Exif.Image.XPComment']
                 self.Metadata_table.setRowCount(self.tableLength)
                 # self.PopulateTable(self.Metadata)
+                self.p = 'Exif.'
                 for i, (k, v) in enumerate(self.Metadata.items()):
-                # print(i, k, v)
+                        k= re.sub('Exif.','',k)  
+                        k= re.sub('Xmp.','',k)                              
+                        print(i, k, v)
                         self.newitem1 = QtWidgets.QTableWidgetItem(k)
                         self.newitem2 = QtWidgets.QTableWidgetItem(v)
                         self.Metadata_table.setItem(i, 0, self.newitem1)
                         self.Metadata_table.setItem(i, 1, self.newitem2)   
                 return self.Metadata
-
-        def PopulateTable(self, Data):
-                for i, (k, v) in enumerate(Data.items()):
-                # print(i, k, v)
-                        self.newitem1 = QtWidgets.QTableWidgetItem(k)
-                        self.newitem2 = QtWidgets.QTableWidgetItem(v)
-                        self.Metadata_table.setItem(i, 0, self.newitem1)
-                        self.Metadata_table.setItem(i, 1, self.newitem2)            
-
-
-        # def Visualize(self,path):
-        #     self.LoadMetadata(path)
-        #     self.generateTable()
-        #     self.PopulateTable(self.Metadata)        
