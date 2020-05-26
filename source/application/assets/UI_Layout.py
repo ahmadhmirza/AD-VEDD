@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Qt_Designer_Layout.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -72,7 +72,9 @@ class UI(object):
         self.Image_GridLayout.addWidget(self.analyseImage, 1, 1, 1, 1)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.label.setToolTipDuration(-1)
         self.label.setStyleSheet("")
+        self.label.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.Image_GridLayout.addWidget(self.label, 0, 0, 1, 2)
@@ -185,13 +187,16 @@ class UI(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "VED²"))
+        self.loadImage.setToolTip(_translate("MainWindow", "Load image from disk for analysis."))
         self.loadImage.setText(_translate("MainWindow", "Load Image"))
-        self.analyseImage.setStatusTip(_translate("MainWindow", "Start image analysis"))
+        self.analyseImage.setToolTip(_translate("MainWindow", "Start image analysis"))
         self.analyseImage.setText(_translate("MainWindow", "Start Analysis"))
-        self.label.setStatusTip(_translate("MainWindow", "Image will be displayed here."))
+        self.label.setToolTip(_translate("MainWindow", "Image will be displayed here."))
         self.label.setText(_translate("MainWindow", "Click on \"Load Image\" button to import an image"))
-        self.Analysis_holder.setStatusTip(_translate("MainWindow", "Analysis Results are sumarized here."))
+        self.Analysis_holder.setToolTip(_translate("MainWindow", "Analysis Results are sumarized here."))
+        self.report_generate.setToolTip(_translate("MainWindow", "Generate analysis report."))
         self.report_generate.setText(_translate("MainWindow", "Generate Report"))
+        self.Metadata_table.setToolTip(_translate("MainWindow", "Metadata table shown here."))
         item = self.Metadata_table.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "New Row"))
         item = self.Metadata_table.verticalHeaderItem(1)
@@ -200,28 +205,24 @@ class UI(object):
         item.setText(_translate("MainWindow", "New Column"))
         item = self.Metadata_table.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "New Column"))
+        self.add_new.setToolTip(_translate("MainWindow", "Insert row for new metadata entries"))
         self.add_new.setText(_translate("MainWindow", "Add new values to Metadata"))
         self.menuFIle.setTitle(_translate("MainWindow", "FIle"))
         self.menuTools.setTitle(_translate("MainWindow", "Tools"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.actionImport_Image.setText(_translate("MainWindow", "Import Image"))
-        self.actionImport_Image.setStatusTip(_translate("MainWindow", "Select and image for analysis"))
         self.actionImport_Image.setShortcut(_translate("MainWindow", "Ctrl+O"))
         self.actionExport_Image.setText(_translate("MainWindow", "Export Image"))
-        self.actionExport_Image.setStatusTip(_translate("MainWindow", "Save the displayed image to disk"))
         self.actionExport_Image.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionSave_Metadata.setText(_translate("MainWindow", "Save Metadata"))
         self.actionSave_Metadata.setShortcut(_translate("MainWindow", "Ctrl+Alt+S"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionExit.setShortcut(_translate("MainWindow", "Alt+E"))
         self.actionDetect_Vehicles.setText(_translate("MainWindow", "Detect Vehicles"))
-        self.actionDetect_Vehicles.setStatusTip(_translate("MainWindow", "Detect Vehicles and draw bounding boxes around detections."))
         self.actionDetect_Vehicles.setShortcut(_translate("MainWindow", "Ctrl+Alt+V"))
         self.actionDetect_Lanes.setText(_translate("MainWindow", "Detect Lanes"))
-        self.actionDetect_Lanes.setStatusTip(_translate("MainWindow", "Detect Lane marking and highlight them."))
         self.actionDetect_Lanes.setShortcut(_translate("MainWindow", "Ctrl+Alt+L"))
         self.actionAnalyse_Detections.setText(_translate("MainWindow", "Analyse Detections"))
-        self.actionAnalyse_Detections.setStatusTip(_translate("MainWindow", "Infer relevant information from the detections"))
         self.actionAnalyse_Detections.setShortcut(_translate("MainWindow", "Ctrl+Alt+A"))
         self.actionDocumentation.setText(_translate("MainWindow", "Documentation"))
         self.actionRepository.setText(_translate("MainWindow", "Repository"))
