@@ -1,0 +1,3 @@
+ syntax-> (pyuic5 -x source.ui -o output.py)
+ 
+ pyuic5 -x two.ui -o two_1.py
