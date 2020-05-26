@@ -15,10 +15,17 @@ import LaneDetection as ld
 class ImageLoader(UI,Ui_Dialog):
     def __init__(self,MainWindow):
         UI.__init__(self,MainWindow)
-        # Signals for push buttons and menu items
+        # Signals for push buttons
         self.loadImage.clicked.connect(self.getImage) 
         self.analyseImage.clicked.connect(self.processImage)
+        # Signals for menu items
+        self.actionImport_Image.triggered.connect(self.getImage)
         self.actionExport_Image.triggered.connect(self.saveImage)
+        self.actionExit.triggered.connect(self.exitApp)    
+
+        self.actionDetect_Vehicles.triggered.connect(self.detectVehicles)
+        self.actionDetect_Lanes.triggered.connect(self.detectLanes)
+
     def displayStatus(self,statusMessage):
         MainWindow.statusBar().showMessage(statusMessage)
 
@@ -62,6 +69,43 @@ class ImageLoader(UI,Ui_Dialog):
             print(str(e)) 
             return False
 
+    def detectLanes(self):
+        try:
+            # Read image from the selected path
+            img = self.image
+            self.displayStatus('Starting image analysis - Lane Detection...')
+            # Perfome detection operation
+            procImg,laneCoordinates = ld.detectLanesWhite(img)
+            if laneCoordinates != False:
+                laneMid =laneCoordinates
+            else:
+                pass
+            print(laneMid)
+            # Make a copy of the image
+            self.image = procImg
+            # Display processed image on canvas
+            self.displayImageFromArray(procImg)
+            self.displayStatus('Lane detection completed.')
+        except Exception as e:
+            print(str(e))
+            self.displayStatus('Lane detection couldn\'t be completed.')
+    
+    def detectVehicles(self):
+        try:
+            # Read image from the selected path
+            img = self.image
+            self.displayStatus('Starting image analysis - Vehicle Detection...')
+            # Perfome detection operation
+            procImg,vehicleMetaData = vd.detectVehicles(img)
+            # Make a copy of the image 
+            self.image = procImg
+            # Display processed image on canvas
+            self.displayImageFromArray(procImg)
+            self.displayStatus('Lane detection completed.')
+        except Exception as e:
+            print(str(e))
+            self.displayStatus('Vehicle detection couldn\'t be completed.')
+
     def processImage(self):
         try:
             # Make a copy of the original image
@@ -100,7 +144,10 @@ class ImageLoader(UI,Ui_Dialog):
             self.displayStatus('Error(s) encountered while saving image.')
             return False
         
-        
+    # Exit application
+    def exitApp(self):
+        sys.exit()
+
 if __name__ == "__main__":
     import sys
     # os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
