@@ -42,11 +42,11 @@ def calculateSlope(x1,y1,x2,y2):
     try:
         if Num == 0:
             slope = Num/Den
-            print("Horizontal Line detected.")
-            print(slope)
+            #print("Horizontal Line detected.")
+            #print(slope)
             return 1
         if Den == 0:
-            print("Vertical line detected.")
+            #print("Vertical line detected.")
             return 1
         else:
             slope = Num/Den
@@ -68,6 +68,7 @@ def houghTransform(image, edges):
     line_image = np.copy(image)
     # Run Hough on edge detected image
     lines = cv2.HoughLinesP(edges, rho, theta, threshold, np.array([]), min_line_length, max_line_gap)
+    usedLines = []
     try:
         # Iterate over the output "lines" and draw lines on the blank
         for line in lines:
@@ -75,12 +76,43 @@ def houghTransform(image, edges):
                 slope = calculateSlope(x1,y1,x2,y2)
                 if slope == 1:
                     cv2.line(line_image,(x1,y1),(x2,y2),(0,128,0),20)
+                    usedLines.append(line)
                 elif slope >= -0.09 and slope <=0.09:
                     cv2.line(line_image,(x1,y1),(x2,y2),(0,128,0),20)
+                    usedLines.append(line)
                 else:
-                    print("The line is neither vertical nor horizontal, slope = " + str(slope))
+                    pass
+                    #print("The line is neither vertical nor horizontal, slope = " + str(slope))
                     #cv2.line(line_image,(x1,y1),(x2,y2),(0,139,0),20)
         #skipping overlaying line_image over original image for now.
+        print("line coordinates:")
+        counter = 0
+        for x1,y1,x2,y2 in usedLines[0]:
+            x1_mean = x1
+            y1_mean = y1
+            x2_mean = x2
+            y2_mean = y2
+        for line in usedLines:
+            print(line)
+            counter += 1
+            for x1,y1,x2,y2 in line:
+                if counter ==1:
+                    print("skip")
+                    pass
+                else:
+                    x1_mean = x1_mean + x1
+                    y1_mean = y1_mean + y1
+                    x2_mean = x2_mean + x2
+                    y2_mean = y2_mean + y2
+        x1_mean = int(x1_mean / counter)
+        y1_mean = int(y1_mean / counter)
+        x2_mean = int(x2_mean / counter)
+        y2_mean = int(y2_mean / counter)
+        
+        print("mean")
+        
+        print(x1_mean,y1_mean,x2_mean,y2_mean)
+        cv2.line(line_image,(x1_mean,y1_mean),(x2_mean,y2_mean),(255,0,0),10)
         return line_image
     except  Exception as e:
         print(str(e))
