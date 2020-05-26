@@ -178,9 +178,13 @@ class Ui_MainWindow(object):
             print("INFO: MAIN: Processing image...")
             self.displayStatus('Starting image analysis...')
             # Perform detections
-            procImg = ld.detectLanesWhite(img)
-            procImg = vd.detectVehicles(procImg)
+            procImg,laneCoordinates = ld.detectLanesWhite(img)
+            procImg,vehicleMetaData = vd.detectVehicles(procImg)
             print("INFO: MAIN: Analysis done!")
+            print("Lane Data:")
+            print(laneCoordinates)
+            print("Vehicle Data:")
+            print(vehicleMetaData)
             self.displayStatus('Image analysis finished.')
             # Update the original image with the processed image
             self.image = procImg
