@@ -7,10 +7,8 @@ import re
 
 class Visualisor(UI,Ui_Dialog):
         
-        def getImagePath(self, path):
-                self.path = path
-                return(self.path)
         def LoadMetadata(self, path):
+                self.path = path
                 try:
                         i= Image(path, encoding='utf-8')
                         i.modify_exif({'Exif.Photo.MakerNote': 'test'})
