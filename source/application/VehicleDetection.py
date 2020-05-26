@@ -158,9 +158,9 @@ def detectVehicles(inputImage):
     #detection_graph, category_index= load_DetGraph_and_Map(PATH_TO_FROZEN_GRAPH,PATH_TO_LABELS)
     outputImage,detectionBoxes = analyseImage(inputImage,detection_graph,category_index)
     print("VehicleDetector: Analysis complete.")
-    print("[ymin, xmin, ymax, xmax]")
-    print(detectionBoxes)
-    return outputImage
+    #print("[ymin, xmin, ymax, xmax]")
+    #print(detectionBoxes)
+    return outputImage,detectionBoxes
 
 PATH_TO_FROZEN_GRAPH    = APP_CONFIG.TENSOR_FLOW_MODEL
 PATH_TO_LABELS          = APP_CONFIG.LABEL_MAP
