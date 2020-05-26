@@ -99,6 +99,13 @@ def analyseImage(image,detection_graph,category_index):
     # result image with boxes and labels on it.
     #image_np = load_image_into_numpy_array(image)
     image_np = image
+    height, width, channels = image_np.shape
+    if height <=500 and widht <=500:
+        print("Resolution: " + str(height)+", " + str(width))
+        BOUNDING_BOX_LINE_THICKNESS = 2
+    else:
+        print("Resolution: " + str(height)+", " + str(width))
+        BOUNDING_BOX_LINE_THICKNESS = 8
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     #image_np_expanded = np.expand_dims(image_np, axis=0)
     # Actual detection.
@@ -112,17 +119,48 @@ def analyseImage(image,detection_graph,category_index):
     category_index,
     instance_masks=output_dict.get('detection_masks'),
     use_normalized_coordinates=True,
-    line_thickness=2)
-    return image_np
+    line_thickness=BOUNDING_BOX_LINE_THICKNESS,
+    min_score_thresh=0.9)
+
+    #co-ordinates of all detection boxes
+    boxes = output_dict['detection_boxes']
+    # get all boxes from an array
+    max_boxes_to_draw = boxes.shape[0]
+    # get scores to get a threshold
+    scores = output_dict['detection_scores']
+    # this is set as a default but feel free to adjust it to your needs
+    min_score_thresh=.9
+    # iterate over all objects found
+    outBoundingBox = []
+    boundingBoxData = {
+        "Box" : None,
+        "Class": None,
+        "Score": None
+    }
+
+    for i in range(min(max_boxes_to_draw, boxes.shape[0])):
+        if scores is None or scores[i] > min_score_thresh:
+            # boxes[i] is the box which will be drawn
+            class_name = category_index[output_dict['detection_classes'][i]]['name']
+            #print ("This box is gonna get used", boxes[i], output_dict['detection_classes'][i])
+            #outBoundingBox.append(boxes[i])
+            boundingBoxData["Box"] = [boxes[i][0],boxes[i][1],boxes[i][2],boxes[i][3]]
+            boundingBoxData["Class"] = class_name
+            boundingBoxData["Score"] = scores[i]
+            outBoundingBox.append(boundingBoxData)
+
+    return image_np,outBoundingBox
 
 def detectVehicles(inputImage):
     print("VehicleDetector: Starting analysis...")
     PATH_TO_FROZEN_GRAPH    = APP_CONFIG.TENSOR_FLOW_MODEL
     PATH_TO_LABELS          = APP_CONFIG.LABEL_MAP
     #detection_graph, category_index= load_DetGraph_and_Map(PATH_TO_FROZEN_GRAPH,PATH_TO_LABELS)
-    outputImage = analyseImage(inputImage,detection_graph,category_index)
+    outputImage,detectionBoxes = analyseImage(inputImage,detection_graph,category_index)
     print("VehicleDetector: Analysis complete.")
-    return outputImage
+    #print("[ymin, xmin, ymax, xmax]")
+    #print(detectionBoxes)
+    return outputImage,detectionBoxes
 
 PATH_TO_FROZEN_GRAPH    = APP_CONFIG.TENSOR_FLOW_MODEL
 PATH_TO_LABELS          = APP_CONFIG.LABEL_MAP
