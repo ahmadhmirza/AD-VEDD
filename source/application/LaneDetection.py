@@ -85,8 +85,10 @@ def houghTransform(image, edges):
                     #print("The line is neither vertical nor horizontal, slope = " + str(slope))
                     #cv2.line(line_image,(x1,y1),(x2,y2),(0,139,0),20)
         #skipping overlaying line_image over original image for now.
-        print("line coordinates:")
+        #print("line coordinates:")
         counter = 0
+        #Calucaling the center of the detected lane marker
+        #Assumes only one lane marker
         for x1,y1,x2,y2 in usedLines[0]:
             x1_mean = x1
             y1_mean = y1
@@ -97,7 +99,7 @@ def houghTransform(image, edges):
             counter += 1
             for x1,y1,x2,y2 in line:
                 if counter ==1:
-                    print("skip")
+                    #print("skip")
                     pass
                 else:
                     x1_mean = x1_mean + x1
@@ -109,11 +111,10 @@ def houghTransform(image, edges):
         x2_mean = int(x2_mean / counter)
         y2_mean = int(y2_mean / counter)
         
-        print("mean")
-        
-        print(x1_mean,y1_mean,x2_mean,y2_mean)
+       #print("mean")
+        meanCoordinates = [x1_mean,y1_mean,x2_mean,y2_mean]
         cv2.line(line_image,(x1_mean,y1_mean),(x2_mean,y2_mean),(255,0,0),10)
-        return line_image
+        return line_image, meanCoordinates
     except  Exception as e:
         print(str(e))
         return image
@@ -138,9 +139,10 @@ def detectLanesWhite(image):
     # gaussian filter to remove noise
     img = gaussian_noise(img, 5) 
     #apply hough transform to detect the lines
-    img = houghTransform(image,img)
-    print("LaneDetector: Analysis complete.")
-    return img
+    img,coordinates = houghTransform(image,img)
+    #print(coordinates)
+    #print("LaneDetector: Analysis complete.")
+    return img,coordinates
     
 def main():
     img_path = "/home/ahmad/Desktop/test_1_3.jpg"
