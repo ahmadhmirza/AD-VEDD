@@ -25,7 +25,7 @@ class ImageLoader(UI,Ui_Dialog):
             self.img = cv2.resize(self.img, self.img_resolution )
             Visualisor.getImagePath(self, self.imagePath)
             Visualisor.LoadMetadata(self, self.imagePath)
-            Visualisor.one(self)
+            # Visualisor.one(self)
             self.displayImageFromArray()      
             return True
         except Exception as e:

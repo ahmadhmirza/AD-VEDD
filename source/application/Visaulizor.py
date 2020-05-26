@@ -25,7 +25,7 @@ class Visualisor(UI,Ui_Dialog):
                 for i, (k, v) in enumerate(self.Metadata.items()):
                         k= re.sub('Exif.','',k)  
                         k= re.sub('Xmp.','',k)                              
-                        print(i, k, v)
+                        # print(i, k, v)
                         self.newitem1 = QtWidgets.QTableWidgetItem(k)
                         self.newitem2 = QtWidgets.QTableWidgetItem(v)
                         self.Metadata_table.setItem(i, 0, self.newitem1)
