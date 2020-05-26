@@ -3,7 +3,9 @@ from pyexiv2 import Image
 from UI import *
 import os
 import re
-class Visualisor(UI):
+from ui_Dialog import *
+class Visualisor(UI,Ui_Dialog):
+        
         def getImagePath(self, path):
                 self.path = path
                 return(self.path)
@@ -29,3 +31,8 @@ class Visualisor(UI):
                         self.Metadata_table.setItem(i, 0, self.newitem1)
                         self.Metadata_table.setItem(i, 1, self.newitem2)   
                 return self.Metadata
+        def one(self):
+                if self.Metadata_table:
+                        self.add_new.setEnabled(True)
+
+

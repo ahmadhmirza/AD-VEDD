@@ -81,6 +81,7 @@ class UI(object):
         self.Image_GridLayout = QtWidgets.QGridLayout()
         self.Image_GridLayout.setObjectName("Image_GridLayout")
         self.loadImage = QtWidgets.QPushButton(self.centralwidget)
+        self.loadImage.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.loadImage.setStyleSheet("background-color: #ffb300; color:#000000; border: none;font-size:28px")
         self.loadImage.setObjectName("loadImage")
         self.Image_GridLayout.addWidget(self.loadImage, 1, 0, 1, 1)
@@ -107,7 +108,13 @@ class UI(object):
         self.Analysis_holder.setObjectName("Analysis_holder")
         self.Analysis_gridLayout.addWidget(self.Analysis_holder, 0, 0, 1, 2)
         self.report_generate = QtWidgets.QPushButton(self.centralwidget)
-        self.report_generate.setStyleSheet("background-color: #ffb300; color:#000000; border: none;font-size:28px")
+        self.report_generate.setEnabled(False)
+        self.report_generate.setCursor(QtGui.QCursor(QtCore.Qt.ForbiddenCursor))
+        self.report_generate.setStyleSheet("QPushButton{background-color: #ffb300; color:#000000; border: none;font-size:28px}\n"
+"\n"
+"QPushButton:disabled {\n"
+"background-color:#989898;\n"
+"}")
         self.report_generate.setObjectName("report_generate")
         self.Analysis_gridLayout.addWidget(self.report_generate, 2, 0, 1, 2)
         self.horizontalLayout.addLayout(self.Analysis_gridLayout)
@@ -138,7 +145,13 @@ class UI(object):
         self.Metadata_table.verticalHeader().setVisible(False)
         self.Table_verticalLayout.addWidget(self.Metadata_table)
         self.add_new = QtWidgets.QPushButton(self.centralwidget)
-        self.add_new.setStyleSheet("background-color: #ffb300; color:#000000; border: none;font-size:28px")
+        self.add_new.setEnabled(False)
+        self.add_new.setCursor(QtGui.QCursor(QtCore.Qt.ForbiddenCursor))
+        self.add_new.setStyleSheet("QPushButton{background-color: #ffb300; color:#000000; border: none;font-size:28px}\n"
+"\n"
+"QPushButton:disabled {\n"
+"background-color:#989898;\n"
+"}")
         self.add_new.setObjectName("add_new")
         self.Table_verticalLayout.addWidget(self.add_new)
         self.horizontalLayout.addLayout(self.Table_verticalLayout)

@@ -5,8 +5,9 @@ import Config as APP_CONFIG
 from Visaulizor import *
 from UI import *
 from PyQt5.QtGui import QImage
+from ui_Dialog import *
 
-class ImageLoader(UI):
+class ImageLoader(UI,Ui_Dialog):
     def __init__(self,MainWindow):
         UI.__init__(self,MainWindow)
         self.title          =   APP_CONFIG.MAIN_WINDOW_TITLE
@@ -24,6 +25,7 @@ class ImageLoader(UI):
             self.img = cv2.resize(self.img, self.img_resolution )
             Visualisor.getImagePath(self, self.imagePath)
             Visualisor.LoadMetadata(self, self.imagePath)
+            Visualisor.one(self)
             self.displayImageFromArray()      
             return True
         except Exception as e:
