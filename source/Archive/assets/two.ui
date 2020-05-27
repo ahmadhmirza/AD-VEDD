@@ -141,7 +141,26 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QPushButton{
+color:#ffffff;
+font-size: 22px;
+background-color: rgba(46, 204, 113, 0.4); 
+border-style: solid;
+padding: 23px;
+border-radius:10px
+
+}
+QMainWindow{
+background-color:#222d3d
+}
+
+QWidget{
+background-color:#222d3d
+}
+
+QMenuBar{\nbackground-color:#222d3d;\n}
+
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -162,7 +181,7 @@
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">background-color: #ffb300; color:#000000; border: none;font-size:28px</string>
         </property>
         <property name="text">
          <string>Load Image</string>
@@ -172,7 +191,7 @@
       <item row="1" column="1">
        <widget class="QPushButton" name="analyse">
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">background-color: #ffb300; color:#000000; border: none;font-size:28px</string>
         </property>
         <property name="text">
          <string>Analyze </string>
@@ -182,7 +201,7 @@
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="label">
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color:#ffb300; font-size:24px</string>
         </property>
         <property name="text">
          <string>Click on &quot;Load Image&quot; button to import an image</string>
@@ -205,7 +224,8 @@
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">border-color: rgba(255, 255, 255, 0.5);
+</string>
         </property>
        </widget>
       </item>
@@ -218,7 +238,11 @@
          <cursorShape>ForbiddenCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">QPushButton{background-color: #ffb300; color:#000000; border: none;font-size:28px}
+
+QPushButton:disabled {
+background-color:#989898;
+}</string>
         </property>
         <property name="text">
          <string>Generate Report</string>
@@ -241,7 +265,7 @@
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">background-color: #29374b; color:#ffffff</string>
         </property>
         <property name="showGrid">
          <bool>false</bool>
@@ -286,7 +310,11 @@
          <cursorShape>ForbiddenCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">QPushButton{background-color: #ffb300; color:#000000; border: none;font-size:28px}
+
+QPushButton:disabled {
+background-color:#989898;
+}</string>
         </property>
         <property name="text">
          <string>Add new values to Metadata</string>
@@ -303,11 +331,11 @@
      <x>0</x>
      <y>0</y>
      <width>1372</width>
-     <height>20</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color: #1b2431; padding:10px; color:#ffffff</string>
    </property>
    <widget class="QMenu" name="menuFIle">
     <property name="title">
