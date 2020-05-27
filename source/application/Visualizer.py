@@ -20,6 +20,7 @@ class Visualisor(UI,Ui_Dialog):
                         print (self.tableLength)
                         del ex['Exif.Image.XPComment']
                         self.Metadata_table.setRowCount(self.tableLength)
+                        
                         # self.PopulateTable(self.Metadata)
                         self.p = 'Exif.'
                         for i, (k, v) in enumerate(self.Metadata.items()):
@@ -29,7 +30,10 @@ class Visualisor(UI,Ui_Dialog):
                                 self.newitem1 = QtWidgets.QTableWidgetItem(k)
                                 self.newitem2 = QtWidgets.QTableWidgetItem(v)
                                 self.Metadata_table.setItem(i, 0, self.newitem1)
-                                self.Metadata_table.setItem(i, 1, self.newitem2)   
+                                self.Metadata_table.setItem(i, 1, self.newitem2)
+                        header = self.Metadata_table.horizontalHeader()
+                        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+                        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
                         return True
                 except Exception as e:
                         print("visualizer: " + str(e))
