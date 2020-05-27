@@ -7,10 +7,9 @@ The objective of the software is to provide a GUI for analysis of images recorde
 
 For the second part further analysis is to be done to extract useful information from the image e.g. distance and orientation of the vehicles with respect to the lane markings etc.
 
-The figure below shows an output from the implementation of phase-1.
+The figure below shows the current UI of the application.
 
-![Image Analysis Output](https://github.com/ahmadhmirza/AD-VEDD/blob/ImageProcessing/_doc/screenshots/Screenshot%20from%202020-05-15%2011-58-40.png)
-
+![Image Analysis Output](https://github.com/ahmadhmirza/AD-VEDD/blob/ImageProcessing/_doc/screenshots/Screenshot%20from%202020-05-27%2011-05-10.png)
 
 
 *----------*----------*
