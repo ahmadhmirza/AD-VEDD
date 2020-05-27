@@ -44,7 +44,7 @@ class ImageLoader(UI,Ui_Dialog):
                     self.displayStatus("Unable to load the image. ")
             else: # Meta data read successfully
                 self.displayImageFromArray(self.image)      
-                self.displayStatus('Image loaded and ready for analysis. Image resolution: '+ str(height)+" x " + str(width))
+                self.displayStatus('Image loaded and ready for analysis...')
                 return True
         except Exception as e:
             print(str(e))
