@@ -10,6 +10,5 @@ pillow
 Cython
 contextlib2
 pandas
-pycocotools
 tensorflow-object-detection-api
 pyexiv2

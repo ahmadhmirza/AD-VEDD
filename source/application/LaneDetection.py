@@ -89,31 +89,34 @@ def houghTransform(image, edges):
         counter = 0
         #Calucaling the center of the detected lane marker
         #Assumes only one lane marker
-        for x1,y1,x2,y2 in usedLines[0]:
-            x1_mean = x1
-            y1_mean = y1
-            x2_mean = x2
-            y2_mean = y2
-        for line in usedLines:
-            print(line)
-            counter += 1
-            for x1,y1,x2,y2 in line:
-                if counter ==1:
-                    #print("skip")
-                    pass
-                else:
-                    x1_mean = x1_mean + x1
-                    y1_mean = y1_mean + y1
-                    x2_mean = x2_mean + x2
-                    y2_mean = y2_mean + y2
-        x1_mean = int(x1_mean / counter)
-        y1_mean = int(y1_mean / counter)
-        x2_mean = int(x2_mean / counter)
-        y2_mean = int(y2_mean / counter)
-        
-       #print("mean")
-        meanCoordinates = [x1_mean,y1_mean,x2_mean,y2_mean]
-        cv2.line(line_image,(x1_mean,y1_mean),(x2_mean,y2_mean),(255,0,0),10)
+        try:
+            for x1,y1,x2,y2 in usedLines[0]:
+                x1_mean = x1
+                y1_mean = y1
+                x2_mean = x2
+                y2_mean = y2
+            for line in usedLines:
+                #print(line)
+                counter += 1
+                for x1,y1,x2,y2 in line:
+                    if counter ==1:
+                        #print("skip")
+                        pass
+                    else:
+                        x1_mean = x1_mean + x1
+                        y1_mean = y1_mean + y1
+                        x2_mean = x2_mean + x2
+                        y2_mean = y2_mean + y2
+            x1_mean = int(x1_mean / counter)
+            y1_mean = int(y1_mean / counter)
+            x2_mean = int(x2_mean / counter)
+            y2_mean = int(y2_mean / counter)
+            
+        #print("mean")
+            meanCoordinates = [x1_mean,y1_mean,x2_mean,y2_mean]
+            cv2.line(line_image,(x1_mean,y1_mean),(x2_mean,y2_mean),(255,0,0),10)
+        except:
+            return line_image,False
         return line_image, meanCoordinates
     except  Exception as e:
         print(str(e))
