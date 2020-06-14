@@ -42,4 +42,4 @@ The figure below shows the current UI of the application.
 * **Start Analysis**: Begins the analysis process (lane detection & vehicle detection)
 * **Generate Report**: Saves the report shown in the Analysis Summary section as .csv file.
 
-*----------*----------*
+------------------------------
