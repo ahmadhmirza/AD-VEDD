@@ -312,11 +312,18 @@ class ImageLoader(UI,Ui_Dialog):
     def exitApp(self):
         sys.exit()
 
-
-if __name__ == '__main__':
+def main():
     appctxt = ApplicationContext()       # 1. Instantiate ApplicationContext
     MainWindow = QMainWindow()
     im = ImageLoader(MainWindow)
     MainWindow.show()
     exit_code = appctxt.app.exec_()      # 2. Invoke appctxt.app.exec_()
     sys.exit(exit_code)
+
+# if __name__ == '__main__':
+#     appctxt = ApplicationContext()       # 1. Instantiate ApplicationContext
+#     MainWindow = QMainWindow()
+#     im = ImageLoader(MainWindow)
+#     MainWindow.show()
+#     exit_code = appctxt.app.exec_()      # 2. Invoke appctxt.app.exec_()
+#     sys.exit(exit_code)
