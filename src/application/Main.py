@@ -15,6 +15,9 @@ from UI_Dialog import *
 import VehicleDetection as vd
 import LaneDetection as ld
 
+from PyQt5.Qt import QApplication, QUrl, QDesktopServices
+import sys
+
 class ImageLoader(UI,Ui_Dialog):
     def __init__(self,MainWindow):
         UI.__init__(self,MainWindow)
@@ -27,7 +30,9 @@ class ImageLoader(UI,Ui_Dialog):
         # Signals for menu items
         self.actionImport_Image.triggered.connect(self.getImage)
         self.actionExport_Image.triggered.connect(self.saveImage)
-        self.actionExit.triggered.connect(self.exitApp)    
+        self.actionExit.triggered.connect(self.exitApp) 
+        self.actionDocumentation.triggered.connect(self.openDoc) 
+        self.actionRepository.triggered.connect(self.openRepo) 
 
         self.actionDetect_Vehicles.triggered.connect(self.detectVehicles)
         self.actionDetect_Lanes.triggered.connect(self.detectLanes)
@@ -36,8 +41,17 @@ class ImageLoader(UI,Ui_Dialog):
 
     def displayStatus(self,statusMessage):
         MainWindow.statusBar().showMessage(statusMessage)
+    
+    def openDoc(self):
+        #app = QApplication(sys.argv)
+        url = QUrl("https://github.com/ahmadhmirza/AD-VEDD/blob/dev-chkpoint/README.md")
+        QDesktopServices.openUrl(url)
 
-     
+    def openRepo(self):
+        #app = QApplication(sys.argv)
+        url = QUrl("https://github.com/ahmadhmirza/AD-VEDD")
+        QDesktopServices.openUrl(url)
+
     def getImage(self):
         self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','E:\\', "Image files (*.jpg *.gif)")
         self.filename = Path(self.fname).name
