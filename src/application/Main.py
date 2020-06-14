@@ -39,19 +39,23 @@ class ImageLoader(UI,Ui_Dialog):
 
         self.analysisResults={}
 
+    #displayes a string message in the status bar
     def displayStatus(self,statusMessage):
         MainWindow.statusBar().showMessage(statusMessage)
     
+    #Opens the URL of the documentation on the repo in a web-browser
     def openDoc(self):
         #app = QApplication(sys.argv)
         url = QUrl("https://github.com/ahmadhmirza/AD-VEDD/blob/dev-chkpoint/README.md")
         QDesktopServices.openUrl(url)
 
+    #Opens the URL of the repo in a web-browser
     def openRepo(self):
         #app = QApplication(sys.argv)
         url = QUrl("https://github.com/ahmadhmirza/AD-VEDD")
         QDesktopServices.openUrl(url)
 
+    #Function to load an image from the disk
     def getImage(self):
         self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','E:\\', "Image files (*.jpg *.gif)")
         self.filename = Path(self.fname).name
@@ -75,6 +79,7 @@ class ImageLoader(UI,Ui_Dialog):
             print(str(e))
             self.displayStatus('Error loading image.')
 
+    #function to save the analysis report as a csv file
     def generateReport_File(self):
         try:
             fileName = self.filename
@@ -88,7 +93,8 @@ class ImageLoader(UI,Ui_Dialog):
         except Exception as e:
             print (str(e))
             self.displayStatus('Error(s) While generating report.')
-           
+
+    #Function to load a video file from the disk   
     def getVideo(self):
         self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','C:\\', "Video files (*.mp4)")
         self.filename = Path(self.fname).name
@@ -146,6 +152,7 @@ class ImageLoader(UI,Ui_Dialog):
             print("ERROR: MAIN:"+ str(e))
             self.displayStatus('Error(s) encountered while processing video frames.')
             return False
+
     #TODO: function to play the video on the canvas frame by frame
     def initVideoDisplay(self,firstFrame):
         try:
@@ -163,7 +170,7 @@ class ImageLoader(UI,Ui_Dialog):
         except Exception as e:
             print(str(e)) 
             return False  
-
+    #draws an image on the image canvas(label)
     def displayImageFromArray(self,img):
         print("INFO: MAIN: Drawing image on canvas.")
         try:
@@ -183,6 +190,7 @@ class ImageLoader(UI,Ui_Dialog):
             print(str(e)) 
             return False
 
+    #processes the image and highlights the lane markings in the input image
     def detectLanes(self):
         try:
             # Read image from the selected path
@@ -203,7 +211,8 @@ class ImageLoader(UI,Ui_Dialog):
         except Exception as e:
             print(str(e))
             self.displayStatus('Lane detection couldn\'t be completed.')
-    
+
+    #processes the image and draws bounding boxes around the detected vehicles in the input image
     def detectVehicles(self):
         try:
             # Read image from the selected path
@@ -220,6 +229,7 @@ class ImageLoader(UI,Ui_Dialog):
             print(str(e))
             self.displayStatus('Vehicle detection couldn\'t be completed.')
 
+    #perfome both lane and vehicle detection
     def processImage(self):
         try:
             # Make a copy of the original image
@@ -264,6 +274,7 @@ class ImageLoader(UI,Ui_Dialog):
             self.displayStatus('Error(s) encountered while processing image.')
             return False
 
+    #Populate table with metadata
     def Analysis_table_item(self, item, value):
         item.setExpanded(True)
         if type(value) is dict:
@@ -293,7 +304,8 @@ class ImageLoader(UI,Ui_Dialog):
     def fill_Analysis_table(self,widget, value):
         widget.clear()
         self.Analysis_table_item(widget.invisibleRootItem(), value)
-        
+    
+    #Save image to disk
     def saveImage(self):
         try:
             fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_outImage', "Image files (*.jpg)")
