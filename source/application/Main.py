@@ -1,6 +1,9 @@
 # Library Imports
 import cv2
 import os
+from pathlib import Path
+import json
+import csv
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QImage
 # Internal modules import
@@ -12,6 +15,7 @@ from UI_Dialog import *
 import VehicleDetection as vd
 import LaneDetection as ld
 
+
 class ImageLoader(UI,Ui_Dialog):
     def __init__(self,MainWindow):
         UI.__init__(self,MainWindow)
@@ -20,6 +24,7 @@ class ImageLoader(UI,Ui_Dialog):
         self.analyseImage.clicked.connect(self.processImage)
         self.loadVideo.clicked.connect(self.getVideo)
         self.analyseVideo.clicked.connect(self.processVideo)
+        self.generateReport.clicked.connect(self.generateReport_File)
         # Signals for menu items
         self.actionImport_Image.triggered.connect(self.getImage)
         self.actionExport_Image.triggered.connect(self.saveImage)
@@ -192,7 +197,6 @@ class ImageLoader(UI,Ui_Dialog):
             # Perform detections
             procImg,laneCoordinates = ld.detectLanesWhite(img)
             procImg,vehicleMetaData = vd.detectVehicles(procImg)
-
             count = 0
             for item in vehicleMetaData:
                 count += 1
@@ -219,31 +223,32 @@ class ImageLoader(UI,Ui_Dialog):
             print("INFO: MAIN: Process finished.")
             self.displayStatus('Image analysis results on canvas.')
             print(self.analysisResults)
-            self.fill_widget(self.Analysis_result, self.analysisResults,self.Label)
+            self.fill_Analysis_table(self.Analysis_result, self.analysisResults)
+            self.generateReport.setEnabled(True)
             return True
         except Exception as e:
             print("ERROR: MAIN:" + str(e))
             self.displayStatus('Error(s) encountered while processing image.')
             return False
 
-    def fill_item(self, item, value, label):
+    def Analysis_table_item(self, item, value):
         item.setExpanded(True)
         if type(value) is dict:
             for key, val in sorted(value.items()):
                 child = QtWidgets.QTreeWidgetItem()
                 child.setText(0, str(key))
                 item.addChild(child)
-                self.fill_item(child, val,label)
+                self.Analysis_table_item(child, val)
         elif type(value) is list:
             for val in value:
                 child = QtWidgets.QTreeWidgetItem()
                 item.addChild(child)
                 if type(val) is dict:      
-                    child.setText(0, str(label))
-                    self.fill_item(child, val,label)
+                    child.setText(0, str(self.label))
+                    self.Analysis_table_item(child, val)
                 elif type(val) is list:
                     child.setText(0, '[list]')
-                    self.fill_item(child, val,label)
+                    self.Analysis_table_item(child, val)
                 else:
                     child.setText(0, str(val))              
                 child.setExpanded(True)
@@ -252,10 +257,25 @@ class ImageLoader(UI,Ui_Dialog):
             child.setText(0, str(value))
             item.addChild(child)
 
-    def fill_widget(self,widget, value, label):
+    def fill_Analysis_table(self,widget, value):
         widget.clear()
-        self.fill_item(widget.invisibleRootItem(), value, label)
-    
+        self.Analysis_table_item(widget.invisibleRootItem(), value)
+        
+    def generateReport_File(self):
+        try:
+            current_directory = os.getcwd()
+            final_directory = os.path.join(current_directory, r'Report')
+            if not os.path.exists(final_directory):
+                os.makedirs(final_directory)
+            p1= os.path.basename(self.imagePath)    
+            with open('Report/'+p1+'_Report.csv', 'w') as f:
+                for key in self.analysisResults.keys():
+                    f.write("%s,%s\n"%(key,self.analysisResults[key]))
+            self.displayStatus('Report is generated sucessfully at location: ' + final_directory)                    
+        except Exception as e:
+            print (str(e))
+            self.displayStatus('Error(s) While generating report.')
+           
     def saveImage(self):
         try:
             fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_outImage', "Image files (*.jpg)")
@@ -279,6 +299,7 @@ if __name__ == "__main__":
     # app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
     MainWindow = QtWidgets.QMainWindow()
     im = ImageLoader(MainWindow)
+    
 
     MainWindow.show()
     sys.exit(app.exec_())

@@ -105,7 +105,7 @@ class UI(object):
         self.Analysis_GridLayout.addWidget(self.analysisHeading, 0, 0, 1, 2)
         self.generateReport = QtWidgets.QPushButton(self.imageTab)
         self.generateReport.setEnabled(False)
-        self.generateReport.setCursor(QtGui.QCursor(QtCore.Qt.ForbiddenCursor))
+        # self.generateReport.setCursor(QtGui.QCursor(QtCore.Qt.ForbiddenCursor))
         self.generateReport.setStyleSheet("font-size:20px")
         self.generateReport.setObjectName("generateReport")
         self.Analysis_GridLayout.addWidget(self.generateReport, 3, 0, 1, 2)
