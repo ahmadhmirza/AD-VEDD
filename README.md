@@ -9,7 +9,7 @@ For the second part further analysis is to be done to extract useful information
 
 The figure below shows the current UI of the application.
 
-![Image Analysis Output](https://github.com/ahmadhmirza/AD-VEDD/blob/ImageProcessing/_doc/screenshots/Screenshot%20from%202020-05-27%2011-05-10.png)
+![Image Analysis Output](https://github.com/ahmadhmirza/AD-VEDD/blob/dev-chkpoint/_doc/screenshots/Screenshot%20from%202020-05-27%2011-05-10.png)
 
 
 *----------*----------*
