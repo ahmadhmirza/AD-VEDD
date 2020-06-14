@@ -11,3 +11,4 @@ contextlib2
 pandas
 tensorflow-object-detection-api
 pyexiv2
+fbs
