@@ -189,6 +189,7 @@ class UI(object):
         self.analyseVideo.setStyleSheet("font-size:20px")
         self.analyseVideo.setObjectName("analyseVideo")
         self.Video_GridLayout.addWidget(self.analyseVideo, 6, 1, 1, 1)
+        
         self.videoCanvas = QtWidgets.QLabel(self.layoutWidget_4)
         self.videoCanvas.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.videoCanvas.setToolTipDuration(-1)
@@ -197,6 +198,7 @@ class UI(object):
         self.videoCanvas.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.videoCanvas.setAlignment(QtCore.Qt.AlignCenter)
         self.videoCanvas.setObjectName("videoCanvas")
+        
         self.Video_GridLayout.addWidget(self.videoCanvas, 0, 0, 1, 2)
         self.videoSeeker = QtWidgets.QSlider(self.layoutWidget_4)
         self.videoSeeker.setOrientation(QtCore.Qt.Horizontal)
