@@ -15,7 +15,6 @@ from UI_Dialog import *
 import VehicleDetection as vd
 import LaneDetection as ld
 
-
 class ImageLoader(UI,Ui_Dialog):
     def __init__(self,MainWindow):
         UI.__init__(self,MainWindow)
@@ -38,12 +37,15 @@ class ImageLoader(UI,Ui_Dialog):
     def displayStatus(self,statusMessage):
         MainWindow.statusBar().showMessage(statusMessage)
 
+     
     def getImage(self):
-        self.fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','E:\\', "Image files (*.jpg *.gif)")
+        self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','E:\\', "Image files (*.jpg *.gif)")
+        self.filename = Path(self.fname).name
+        temp = self.filename.split(".", 1) 
+        self.filename = temp[0]
         try:
-            self.imagePath = self.fname[0]
+            self.imagePath = self.fname
             self.image = cv2.imread(self.imagePath)
-
             #Read metadata from the image
             status = Visualisor.LoadMetadata(self, self.imagePath)
             if status !=True: # Meta data not read
@@ -59,10 +61,27 @@ class ImageLoader(UI,Ui_Dialog):
             print(str(e))
             self.displayStatus('Error loading image.')
 
-    def getVideo(self):
-        self.fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','C:\\', "Video files (*.mp4)")
+    def generateReport_File(self):
         try:
-            self.videoPath = self.fname[0]
+            fileName = self.filename
+            fileName = "VEDD_analysis_report_"+ fileName
+            fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save Report',fileName, "csv files (*.csv)")
+            filePath = fname[0]+".csv"  
+            with open(filePath, 'w') as f:
+                for key in self.analysisResults.keys():
+                    f.write("%s,%s\n"%(key,self.analysisResults[key]))
+            self.displayStatus('Report is generated sucessfully at location: ' + filePath)                    
+        except Exception as e:
+            print (str(e))
+            self.displayStatus('Error(s) While generating report.')
+           
+    def getVideo(self):
+        self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','C:\\', "Video files (*.mp4)")
+        self.filename = Path(self.fname).name
+        temp = self.filename.split(".", 1) 
+        self.filename = temp[0]
+        try:
+            self.videoPath = self.fname
             cap = cv2.VideoCapture(self.videoPath)
             self.videoArray = []
             if (cap.isOpened()== False): 
@@ -261,19 +280,6 @@ class ImageLoader(UI,Ui_Dialog):
         widget.clear()
         self.Analysis_table_item(widget.invisibleRootItem(), value)
         
-        
-    def generateReport_File(self):
-        try:
-            fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_analysis_report', "csv files (*.csv)")
-            filePath = fname[0]+".csv"  
-            with open(filePath, 'w') as f:
-                for key in self.analysisResults.keys():
-                    f.write("%s,%s\n"%(key,self.analysisResults[key]))
-            self.displayStatus('Report is generated sucessfully at location: ' + filePath)                    
-        except Exception as e:
-            print (str(e))
-            self.displayStatus('Error(s) While generating report.')
-           
     def saveImage(self):
         try:
             fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_outImage', "Image files (*.jpg)")
