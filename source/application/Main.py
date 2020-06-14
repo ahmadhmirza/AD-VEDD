@@ -269,7 +269,7 @@ class ImageLoader(UI,Ui_Dialog):
             with open(filePath, 'w') as f:
                 for key in self.analysisResults.keys():
                     f.write("%s,%s\n"%(key,self.analysisResults[key]))
-            self.displayStatus('Report is generated sucessfully at location: ' + final_directory)                    
+            self.displayStatus('Report is generated sucessfully at location: ' + filePath)                    
         except Exception as e:
             print (str(e))
             self.displayStatus('Error(s) While generating report.')
