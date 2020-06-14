@@ -26,11 +26,11 @@ The figure below shows the current UI of the application.
 
 ## UI-Documentation
 ### Tabs:
-**Image Analysis Tab** : Tab for processing image inputs
-**Video Analysis Tab** : Tab for processing video inputs. Functionality not available in ver 1.0
+* **Image Analysis Tab** : Tab for processing image inputs
+* **Video Analysis Tab** : Tab for processing video inputs. Functionality not available in ver 1.0
 ### Functionality Buttons:
-**Load Image** : Button to read in the image for further processing
-**Start Analysis**: Begins the analysis process (lane detection & vehicle detection)
-**Generate Report**: Saves the report shown in the Analysis Summary section as .csv file.
+* **Load Image** : Button to read in the image for further processing
+* **Start Analysis**: Begins the analysis process (lane detection & vehicle detection)
+* **Generate Report**: Saves the report shown in the Analysis Summary section as .csv file.
 
 *----------*----------*
