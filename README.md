@@ -17,10 +17,18 @@ The figure below shows the current UI of the application.
     * Python 3+ (3.7 recommended)
     * virtualenv Package (pip install virtualenv)
 ### Steps:
-    * Create a virtual environment - (virtualenv venv)
-    * Install library dependencies - pip install -r requirements.txt
+    * Clone the repository  
+        * git clone https://github.com/ahmadhmirza/AD-VEDD.git
+    * Navigate to directory : _AD-VEDD/src/application/assets/_
+        * Extract tf_model.zip to the same directory
+        * After this step following file should be available in your local directory:
+            * AD-VEDD/src/application/assets/tf_model/frozen_inference_graph.pb
+    * Create a virtual environment 
+        * virtualenv venv
+    * Install library dependencies 
+        * pip install -r requirements.txt
 ### Starting the application
-    * Navigate to the directory: AD-VEDD/src/application/
+    * Navigate to the directory: _AD-VEDD/src/application/_
     * Run the command `python Main.py` in the terminal 
     * The main window of AD-VEDD should show up.
 
