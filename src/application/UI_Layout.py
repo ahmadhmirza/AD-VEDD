@@ -280,7 +280,7 @@ class UI(object):
         self.menuFIle.addAction(self.actionExit)
         self.menuTools.addAction(self.actionDetect_Vehicles)
         self.menuTools.addAction(self.actionDetect_Lanes)
-        self.menuTools.addAction(self.actionAnalyse_Detections)
+        #self.menuTools.addAction(self.actionAnalyse_Detections)
         self.menuHelp.addAction(self.actionDocumentation)
         self.menuHelp.addAction(self.actionRepository)
         #self.menuHelp.addAction(self.actionAbout)
