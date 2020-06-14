@@ -30,7 +30,7 @@ class ImageLoader(UI,Ui_Dialog):
         MainWindow.statusBar().showMessage(statusMessage)
 
     def getImage(self):
-        self.fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','C:\\', "Image files (*.jpg *.gif)")
+        self.fname = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open file','E:\\', "Image files (*.jpg *.gif)")
         try:
             self.imagePath = self.fname[0]
             self.image = cv2.imread(self.imagePath)
@@ -150,10 +150,10 @@ class ImageLoader(UI,Ui_Dialog):
 
 if __name__ == "__main__":
     import sys
-    # os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    # os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "0"
     app = QtWidgets.QApplication(sys.argv)
-    app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-    app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+    # app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+    # app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
     MainWindow = QtWidgets.QMainWindow()
     im = ImageLoader(MainWindow)
 

@@ -11,14 +11,14 @@ class Visualisor(UI,Ui_Dialog):
                 self.path = path
                 try:
                         i= Image(path, encoding='utf-8')
-                        i.modify_exif({'Exif.Photo.MakerNote': 'test'})
+                        # i.modify_exif({'Exif.Photo.MakerNote': ''})
                         ex = i.read_exif()
                         print("Metadata entries found:" + str(len(ex)))
                         xm = i.read_xmp()
                         self.Metadata = {**ex, **xm}    
                         self.tableLength = len(self.Metadata)
                         print (self.tableLength)
-                        del ex['Exif.Image.XPComment']
+                        # del ex['Exif.Image.XPComment']
                         self.Metadata_table.setRowCount(self.tableLength)
                         
                         # self.PopulateTable(self.Metadata)
