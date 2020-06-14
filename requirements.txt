@@ -5,7 +5,6 @@ OpenCV-Python
 lxml
 matplotlib
 pathlib
-lxml
 pillow
 Cython
 contextlib2
