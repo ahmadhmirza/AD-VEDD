@@ -1,0 +1,13 @@
+tensorflow==1.15
+PyQt5==5.9.2
+numpy==1.16
+OpenCV-Python
+lxml
+matplotlib
+pathlib
+pillow
+Cython
+contextlib2
+pandas
+tensorflow-object-detection-api
+pyexiv2
