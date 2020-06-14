@@ -261,14 +261,12 @@ class ImageLoader(UI,Ui_Dialog):
         widget.clear()
         self.Analysis_table_item(widget.invisibleRootItem(), value)
         
+        
     def generateReport_File(self):
         try:
-            current_directory = os.getcwd()
-            final_directory = os.path.join(current_directory, r'Report')
-            if not os.path.exists(final_directory):
-                os.makedirs(final_directory)
-            p1= os.path.basename(self.imagePath)    
-            with open('Report/'+p1+'_Report.csv', 'w') as f:
+            fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_analysis_report', "csv files (*.csv)")
+            filePath = fname[0]+".csv"  
+            with open(filePath, 'w') as f:
                 for key in self.analysisResults.keys():
                     f.write("%s,%s\n"%(key,self.analysisResults[key]))
             self.displayStatus('Report is generated sucessfully at location: ' + final_directory)                    
