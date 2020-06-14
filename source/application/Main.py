@@ -196,21 +196,22 @@ class ImageLoader(UI,Ui_Dialog):
             count = 0
             for item in vehicleMetaData:
                 count += 1
-                Label = "Vehicle_"+str(count)
-                self.analysisResults[Label] = item
-
+                self.Label = "Vehicle_"+str(count)
+                
+                self.analysisResults[self.Label] = item
+            
             self.analysisResults["Lane"] = {
                 "x1":laneCoordinates[0],
                 "y1":laneCoordinates[1],
                 "x2":laneCoordinates[2],
                 "y2":laneCoordinates[3]
             }
-
             print("INFO: MAIN: Analysis done!")
             print("Lane Data:")
             print(laneCoordinates)
             print("Vehicle Data:")
             print(vehicleMetaData)
+            self.v_data = vehicleMetaData
             self.displayStatus('Image analysis finished.')
             # Update the original image with the processed image
             self.image = procImg
@@ -218,12 +219,43 @@ class ImageLoader(UI,Ui_Dialog):
             print("INFO: MAIN: Process finished.")
             self.displayStatus('Image analysis results on canvas.')
             print(self.analysisResults)
+            self.fill_widget(self.Analysis_result, self.analysisResults,self.Label)
             return True
         except Exception as e:
             print("ERROR: MAIN:" + str(e))
             self.displayStatus('Error(s) encountered while processing image.')
             return False
 
+    def fill_item(self, item, value, label):
+        item.setExpanded(True)
+        if type(value) is dict:
+            for key, val in sorted(value.items()):
+                child = QtWidgets.QTreeWidgetItem()
+                child.setText(0, str(key))
+                item.addChild(child)
+                self.fill_item(child, val,label)
+        elif type(value) is list:
+            for val in value:
+                child = QtWidgets.QTreeWidgetItem()
+                item.addChild(child)
+                if type(val) is dict:      
+                    child.setText(0, str(label))
+                    self.fill_item(child, val,label)
+                elif type(val) is list:
+                    child.setText(0, '[list]')
+                    self.fill_item(child, val,label)
+                else:
+                    child.setText(0, str(val))              
+                child.setExpanded(True)
+        else:
+            child = QtWidgets.QTreeWidgetItem()
+            child.setText(0, str(value))
+            item.addChild(child)
+
+    def fill_widget(self,widget, value, label):
+        widget.clear()
+        self.fill_item(widget.invisibleRootItem(), value, label)
+    
     def saveImage(self):
         try:
             fname = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save file','VEDD_outImage', "Image files (*.jpg)")
