@@ -1,0 +1,2 @@
+# Command for converting .ui file to python file:
+pyuic5 -x source.ui -o output.py

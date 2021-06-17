@@ -128,3 +128,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+tf_model/
+frozen_inference_graph.pb
+*.pb
