@@ -1,6 +1,6 @@
 tensorflow>=1.15.2
 PyQt5==5.9.2
-numpy==1.16
+numpy==1.22.0
 OpenCV-Python
 lxml
 matplotlib
